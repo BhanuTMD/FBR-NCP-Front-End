@@ -1,0 +1,64 @@
+
+
+.parta-form {
+  display: grid;
+  gap: 14px;
+  max-width: 900px;
+}
+
+.parta-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.parta-form input,
+.parta-form select,
+.parta-form textarea {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  font-size: 14px;
+}
+
+.parta-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.small {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.field-error {
+  color: #b00020;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.keywords-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.kw-chip {
+  display: inline-flex;
+  align-items: center;
+  background: #eef2ff;
+  padding: 6px 8px;
+  border-radius: 18px;
+  font-size: 13px;
+}
+
+.kw-chip button {
+  margin-left: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 700;
+}
