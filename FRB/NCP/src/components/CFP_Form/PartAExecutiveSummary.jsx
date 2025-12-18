@@ -245,7 +245,7 @@ export default function PartAExecutiveSummary({ onSaved, onDirectNext }) {
 
             {/* Right: Save */}
             <div className="flex gap-3">
-              <button
+              {/* <button
                 type="button"
                 onClick={() => {
                   navigator.clipboard?.writeText(JSON.stringify({ ...form, keywords }));
@@ -254,7 +254,7 @@ export default function PartAExecutiveSummary({ onSaved, onDirectNext }) {
                 className="px-4 py-2 border rounded"
               >
                 Export
-              </button>
+              </button> */}
 
               <button
                 type="submit"
