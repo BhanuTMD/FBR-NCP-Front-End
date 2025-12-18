@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 // import PartCProposalDetails from "./components/CFP/PartCProposalDetails.jsx";
 import WelcomePage from "./components/pages/WelcomePage.jsx";
 import NavBar from "./components/common/NavBar.jsx";
-import ProposalForms from "./components/CFP/ProposalForms.jsx";
+import ProposalForms from "./components/CFP_Form/ProposalForms.jsx";
 
 export default function AppRoutes() {
   return (
