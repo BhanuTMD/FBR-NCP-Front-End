@@ -12,13 +12,13 @@ function wordCount(text = "") {
 }
 
 const Icon = {
-  Plus: ({className=""}) => <span className={className}>+</span>,
-  X: ({className=""}) => <span className={className}>×</span>,
-  Save: ({className=""}) => <span className={className}>💾</span>,
-  Check: ({className=""}) => <span className={className}>✔</span>,
+  Plus: ({ className = "" }) => <span className={className}>+</span>,
+  X: ({ className = "" }) => <span className={className}>×</span>,
+  Save: ({ className = "" }) => <span className={className}>💾</span>,
+  Check: ({ className = "" }) => <span className={className}>✔</span>,
 };
 
-export default function PartAExecutiveSummary({ onSaved }) {
+export default function PartAExecutiveSummary({ onSaved, onDirectNext }) {
   const [form, setForm] = useState({
     title: "",
     category: "",
@@ -53,20 +53,20 @@ export default function PartAExecutiveSummary({ onSaved }) {
   /* co-PI helpers */
   function updateCoPI(idx, key, value) {
     setForm(s => {
-      const coPIs = (s.coPIs || []).map((c,i) => i===idx ? { ...c, [key]: value } : c);
+      const coPIs = (s.coPIs || []).map((c, i) => i === idx ? { ...c, [key]: value } : c);
       return { ...s, coPIs };
     });
   }
   function addCoPI() {
-    setForm(s => ({ ...s, coPIs: [...(s.coPIs||[]), { name:"", lab:"" }] }));
+    setForm(s => ({ ...s, coPIs: [...(s.coPIs || []), { name: "", lab: "" }] }));
   }
   function removeCoPI(idx) {
-    setForm(s => ({ ...s, coPIs: (s.coPIs||[]).filter((_,i)=>i!==idx) }));
+    setForm(s => ({ ...s, coPIs: (s.coPIs || []).filter((_, i) => i !== idx) }));
   }
 
   /* keywords helpers */
   function addKeyword(k) {
-    const cleaned = (k||"").trim();
+    const cleaned = (k || "").trim();
     if (!cleaned) return;
     if (keywords.includes(cleaned)) return;
     if (keywords.length >= MAX_KEYWORDS) return;
@@ -83,10 +83,10 @@ export default function PartAExecutiveSummary({ onSaved }) {
   function validate() {
     const e = {};
     if (!form.principalInvestigator) e.principalInvestigator = "PI is required";
-    const hasCoPIName = (form.coPIs||[]).some(c => c.name && String(c.name).trim().length>0);
-    if (!hasCoPIName) e.coPIs = "At least one Co-PI is required";
+    const hasCoPIName = (form.coPIs || []).some(c => c.name && String(c.name).trim().length > 0);
+    if (hasCoPIName) e.coPIs = "At least one Co-PI is required";
     if (form.totalCostLakhs && isNaN(Number(form.totalCostLakhs))) e.totalCostLakhs = "Enter a valid number";
-    if (form.projectDurationMonths && (isNaN(Number(form.projectDurationMonths)) || Number(form.projectDurationMonths)<=0)) e.projectDurationMonths = "Enter valid months";
+    if (form.projectDurationMonths && (isNaN(Number(form.projectDurationMonths)) || Number(form.projectDurationMonths) <= 0)) e.projectDurationMonths = "Enter valid months";
 
     if (counts.problem > MAX_PROBLEM_WORDS) e.problemStatement = `Limit ${MAX_PROBLEM_WORDS} words (currently ${counts.problem})`;
     if (counts.abstract > MAX_ABSTRACT_WORDS) e.abstract = `Limit ${MAX_ABSTRACT_WORDS} words (currently ${counts.abstract})`;
@@ -100,7 +100,7 @@ export default function PartAExecutiveSummary({ onSaved }) {
   function handleSave(e) {
     e.preventDefault();
     if (!validate()) {
-      window.scrollTo({ top:0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
     const payload = { ...form, keywords };
@@ -118,19 +118,19 @@ export default function PartAExecutiveSummary({ onSaved }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label>
               <div className="text-sm font-medium">Full Title of Proposal</div>
-              <input value={form.title} onChange={e=>updateField("title", e.target.value)} className="mt-2 w-full border rounded px-3 py-2" />
+              <input value={form.title} onChange={e => updateField("title", e.target.value)} className="mt-2 w-full border rounded px-3 py-2" />
             </label>
 
             <label>
               <div className="text-sm font-medium">Lab</div>
-              <input value={form.lab} onChange={e=>updateField("lab", e.target.value)} className="mt-2 w-full border rounded px-3 py-2" />
+              <input value={form.lab} onChange={e => updateField("lab", e.target.value)} className="mt-2 w-full border rounded px-3 py-2" />
             </label>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <label>
               <div className="text-sm font-medium">Category</div>
-              <select value={form.category} onChange={e=>updateField("category", e.target.value)} className="mt-2 w-full border rounded px-3 py-2">
+              <select value={form.category} onChange={e => updateField("category", e.target.value)} className="mt-2 w-full border rounded px-3 py-2">
                 <option value="">Choose…</option>
                 <option value="research">Research</option>
                 <option value="development">Development</option>
@@ -141,22 +141,22 @@ export default function PartAExecutiveSummary({ onSaved }) {
 
             <label>
               <div className="text-sm font-medium">Thematic Area</div>
-              <select value={form.thematicArea} onChange={e=>updateField("thematicArea", e.target.value)} className="mt-2 w-full border rounded px-3 py-2">
-               <option value="">Choose…</option>
-               <option value="energy">Energy</option>
-               <option value="environment">Environment</option>
-               <option value="health">Health</option>
-               <option value="agri">Agriculture</option>
+              <select value={form.thematicArea} onChange={e => updateField("thematicArea", e.target.value)} className="mt-2 w-full border rounded px-3 py-2">
+                <option value="">Choose…</option>
+                <option value="energy">Energy</option>
+                <option value="environment">Environment</option>
+                <option value="health">Health</option>
+                <option value="agri">Agriculture</option>
               </select>
             </label>
 
             <label>
               <div className="text-sm font-medium">Broad Area</div>
-              <select value={form.broadArea} onChange={e=>updateField("broadArea", e.target.value)} className="mt-2 w-full border rounded px-3 py-2">
-               <option value="">Choose…</option>
-               <option value="water">Water</option>
-               <option value="waste">Waste</option>
-               <option value="materials">Materials</option>
+              <select value={form.broadArea} onChange={e => updateField("broadArea", e.target.value)} className="mt-2 w-full border rounded px-3 py-2">
+                <option value="">Choose…</option>
+                <option value="water">Water</option>
+                <option value="waste">Waste</option>
+                <option value="materials">Materials</option>
               </select>
             </label>
           </div>
@@ -164,7 +164,7 @@ export default function PartAExecutiveSummary({ onSaved }) {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <label>
               <div className="text-sm font-medium">Principal Investigator (PI)</div>
-              <input value={form.principalInvestigator} onChange={e=>updateField("principalInvestigator", e.target.value)} className="mt-2 w-full border rounded px-3 py-2 bg-slate-50" />
+              <input value={form.principalInvestigator} onChange={e => updateField("principalInvestigator", e.target.value)} className="mt-2 w-full border rounded px-3 py-2 bg-slate-50" />
               {errors.principalInvestigator && <div className="text-rose-600 text-sm mt-1">{errors.principalInvestigator}</div>}
             </label>
             <div />
@@ -179,18 +179,18 @@ export default function PartAExecutiveSummary({ onSaved }) {
             </div>
 
             <div className="mt-3 space-y-3">
-              {(form.coPIs||[]).map((c, idx) => (
+              {(form.coPIs || []).map((c, idx) => (
                 <div key={idx} className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
                   <div>
                     <label className="text-xs">Co-PI Name</label>
-                    <input value={c.name} onChange={e=>updateCoPI(idx,"name", e.target.value)} className="mt-1 w-full border rounded px-3 py-2" placeholder="Name or email" />
+                    <input value={c.name} onChange={e => updateCoPI(idx, "name", e.target.value)} className="mt-1 w-full border rounded px-3 py-2" placeholder="Name or email" />
                   </div>
                   <div>
                     <label className="text-xs">Co-PI Lab</label>
-                    <input value={c.lab} onChange={e=>updateCoPI(idx,"lab", e.target.value)} className="mt-1 w-full border rounded px-3 py-2" placeholder="Lab" />
+                    <input value={c.lab} onChange={e => updateCoPI(idx, "lab", e.target.value)} className="mt-1 w-full border rounded px-3 py-2" placeholder="Lab" />
                   </div>
                   <div className="flex gap-2">
-                    <button type="button" onClick={()=>removeCoPI(idx)} className="px-3 py-2 border rounded text-rose-600">Remove</button>
+                    <button type="button" onClick={() => removeCoPI(idx)} className="px-3 py-2 border rounded text-rose-600">Remove</button>
                   </div>
                 </div>
               ))}
@@ -200,14 +200,14 @@ export default function PartAExecutiveSummary({ onSaved }) {
 
           <div>
             <div className="text-sm font-medium">Defining the Problem (100 words max)</div>
-            <textarea value={form.problemStatement} onChange={e=>updateField("problemStatement", e.target.value)} rows={4} className="mt-2 w-full border rounded px-3 py-2" />
+            <textarea value={form.problemStatement} onChange={e => updateField("problemStatement", e.target.value)} rows={4} className="mt-2 w-full border rounded px-3 py-2" />
             <div className="text-xs text-slate-500 mt-1">{counts.problem}/{MAX_PROBLEM_WORDS} words</div>
             {errors.problemStatement && <div className="text-rose-600 text-sm mt-1">{errors.problemStatement}</div>}
           </div>
 
           <div>
             <div className="text-sm font-medium">Abstract (300 words max)</div>
-            <textarea value={form.abstract} onChange={e=>updateField("abstract", e.target.value)} rows={6} className="mt-2 w-full border rounded px-3 py-2" />
+            <textarea value={form.abstract} onChange={e => updateField("abstract", e.target.value)} rows={6} className="mt-2 w-full border rounded px-3 py-2" />
             <div className="text-xs text-slate-500 mt-1">{counts.abstract}/{MAX_ABSTRACT_WORDS} words</div>
             {errors.abstract && <div className="text-rose-600 text-sm mt-1">{errors.abstract}</div>}
           </div>
@@ -215,25 +215,57 @@ export default function PartAExecutiveSummary({ onSaved }) {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
             <label className="sm:col-span-2">
               <div className="text-sm font-medium">Keywords (comma separated)</div>
-              <input value={form.keywordsRaw} onChange={e=>updateField("keywordsRaw", e.target.value)} placeholder="Enter keywords" className="mt-2 w-full border rounded px-3 py-2" />
+              <input value={form.keywordsRaw} onChange={e => updateField("keywordsRaw", e.target.value)} placeholder="Enter keywords" className="mt-2 w-full border rounded px-3 py-2" />
               <div className="text-xs text-slate-500 mt-1">Preview: {keywords.join(", ") || "—"}</div>
             </label>
             <div className="flex gap-2">
-              <button type="button" onClick={()=>addKeyword(prompt("Add keyword"))} className="px-3 py-2 border rounded">Add</button>
+              <button type="button" onClick={() => addKeyword(prompt("Add keyword"))} className="px-3 py-2 border rounded">Add</button>
             </div>
           </div>
 
           <div>
             <div className="text-sm font-medium">Outcome (150 words max)</div>
-            <textarea value={form.outcome} onChange={e=>updateField("outcome", e.target.value)} rows={4} className="mt-2 w-full border rounded px-3 py-2" />
+            <textarea value={form.outcome} onChange={e => updateField("outcome", e.target.value)} rows={4} className="mt-2 w-full border rounded px-3 py-2" />
             <div className="text-xs text-slate-500 mt-1">{counts.outcome}/{MAX_OUTCOME_WORDS} words</div>
             {errors.outcome && <div className="text-rose-600 text-sm mt-1">{errors.outcome}</div>}
           </div>
 
-          <div className="flex justify-end gap-3 mt-4">
-            <button type="button" onClick={()=>{ navigator.clipboard?.writeText(JSON.stringify({...form, keywords})); alert("Copied JSON"); }} className="px-4 py-2 border rounded">Export</button>
-            <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded"><Icon.Save /> Save Part A & Go to Part B</button>
+          <div className="flex justify-between gap-3 mt-4">
+
+            {/* Left: Skip to Part B */}
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof onDirectNext === "function") onDirectNext();
+              }}
+              className="px-4 py-2 border rounded text-indigo-600 hover:bg-indigo-50"
+            >
+              Skip & Go to Part B →
+            </button>
+
+            {/* Right: Save */}
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard?.writeText(JSON.stringify({ ...form, keywords }));
+                  alert("Copied JSON");
+                }}
+                className="px-4 py-2 border rounded"
+              >
+                Export
+              </button>
+
+              <button
+                type="submit"
+                className="px-4 py-2 bg-indigo-600 text-white rounded"
+              >
+                <Icon.Save /> Save Part A & Go to Part B
+              </button>
+            </div>
+
           </div>
+
         </form>
       </div>
     </div>
