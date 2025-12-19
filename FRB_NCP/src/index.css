@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+.input {
+  @apply w-full border rounded p-2 mt-1;
+}
+
+.textarea {
+  @apply w-full border rounded p-2 mt-1;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}

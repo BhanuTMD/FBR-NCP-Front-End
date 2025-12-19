@@ -1,30 +1,30 @@
 import { Routes, Route } from "react-router-dom";
-// import PartAExecutiveSummary from "./components/CFP/PartAExecutiveSummary.jsx";
-// import PartBProposalDetails from "./components/CFP/PartBProposalDetails.jsx";
-// import PartCProposalDetails from "./components/CFP/PartCProposalDetails.jsx";
+
 import WelcomePage from "./components/pages/WelcomePage.jsx";
-import NavBar from "./components/common/NavBar.jsx";
-import ProposalForms from "./components/CFP_Form/ProposalForms.jsx";
+import PartAExecutiveSummary from "./components/CFP_Form/PartAExecutiveSummary.jsx";
+import PartBSection1Page from "./components/CFP_Form/PartBSection1Page.jsx";
+import PartBSection2Page from "./components/CFP_Form/PartBSection2Page.jsx";
+import ProposalPrint from "./components/CFP_Form/ProposalPrint.jsx";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* <Route path="/" element={<WelcomePage />} />
-      <Route path="/add-cfp" element={<PartAExecutiveSummary />} />
-      <Route path="/add-cfp/part-b" element={<PartBProposalDetails />} />
-      <Route path="add-cfp/part-c" element={<PartCProposalDetails />} />
-      <Route path="/navbar" element={<NavBar />} /> */}
-      {/* Landing Page */}
+
       <Route path="/" element={<WelcomePage />} />
 
-      {/* Add CFP Master Form */}
-      <Route path="/add-cfp" element={<ProposalForms />} />
+      {/* PART A */}
+      <Route path="/add-cfp" element={<PartAExecutiveSummary />} />
 
-      {/* Optional Navbar Page */}
-      <Route path="/navbar" element={<NavBar />} />
+      {/* PART B */}
+      <Route path="/add-cfp/part-b/section-1" element={<PartBSection1Page />} />
+      <Route path="/add-cfp/part-b/section-2" element={<PartBSection2Page />} />
 
-      {/* Fallback Not Found */}
+      {/* PRINT */}
+      <Route path="/add-cfp/print" element={<ProposalPrint />} />
+
+      {/* FALLBACK */}
       <Route path="*" element={<h1>404 Page Not Found</h1>} />
+
     </Routes>
   );
 }

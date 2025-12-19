@@ -5,51 +5,60 @@ import { useNavigate } from "react-router-dom";
 export default function WelcomePage() {
   const navigate = useNavigate();
 
-  function goToAddCFP() {
-    navigate("/add-cfp");
-  }
-
   return (
     <main
       className="
-        min-h-screen flex flex-col items-center justify-center
-        bg-gradient-to-br from-pink-200 via-purple-200 to-blue-200 p-6 animate-gradient-x
+        min-h-screen flex items-center justify-center 
+        bg-gradient-to-br from-red-100 via-indigo-200 to-purple-200 
+        animate-gradient-x p-6
       "
     >
-      <article
+      <div
         className="
-          bg-white/80 backdrop-blur-xl shadow-2xl border border-white/40
-          rounded-3xl p-10 max-w-xl w-full text-center
-          transition-all duration-500 hover:shadow-[0_0_35px_rgba(255,255,255,0.5)]
+          max-w-2xl w-full text-center
+          bg-white/70 backdrop-blur-lg shadow-xl 
+          border border-white/50 
+          rounded-2xl p-12 
+          transition-all hover:shadow-2xl
         "
       >
+        {/* Title */}
         <h1
           className="
-            text-5xl font-extrabold mb-4
-            bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600
-            bg-clip-text text-transparent animate-pulse
+            text-4xl md:text-5xl font-extrabold
+            bg-gradient-to-r from-red-700 via-purple-600 to-pink-600
+            bg-clip-text text-transparent 
+            mb-6 tracking-tight
           "
         >
           Welcome to the CFP Portal
         </h1>
 
-        <p className="text-gray-700 text-lg mb-8 font-medium">
-          Use the menu to manage and create CFP proposals.
+        {/* Description */}
+        <p className="text-gray-700 text-lg md:text-xl mb-10 font-medium leading-relaxed">
+          Submit, review and manage CSIR CFP Project Proposals seamlessly in one place.
         </p>
 
+        {/* CTA Button */}
         <button
-          onClick={goToAddCFP}
+          onClick={() => navigate("/add-cfp")}
           className="
-            px-7 py-3 bg-gradient-to-r from-purple-500 to-blue-600
-            text-white font-semibold rounded-full shadow-xl
-            transition-all duration-300 hover:from-blue-600 hover:to-purple-500
-            hover:scale-105 active:scale-95
-            focus:outline-none focus:ring-4 focus:ring-purple-300
+            px-8 py-4 rounded-full
+            bg-gradient-to-r from-indigo-500 to-purple-600
+            text-white font-semibold text-lg
+            shadow-lg hover:shadow-2xl 
+            transition-transform hover:scale-105 active:scale-95
+            focus:outline-none focus:ring-4 focus:ring-indigo-300
           "
         >
-          Go to Add CFP 🚀
+          Start Adding CFP 🚀
         </button>
-      </article>
+
+        {/* Footer */}
+        <p className="mt-10 text-sm text-gray-600">
+          Developed by CSIR Headquarters © {new Date().getFullYear()}
+        </p>
+      </div>
     </main>
   );
 }
