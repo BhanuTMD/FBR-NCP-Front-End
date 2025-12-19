@@ -12,6 +12,26 @@ export default function ProjectExecutiveSummary() {
   return (
     <div className="min-h-screen bg-[#FFF8E6] flex justify-center items-start py-10">
       <div className="w-[95%] max-w-7xl bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-[#e6d7b8] p-8">
+         {/* BACK BUTTON  */}
+        <button
+          onClick={() => navigate(-1)}
+          className="
+            absolute left-6 top-6 
+            bg-[#EED9AA]
+            hover:bg-[#e5cc92]
+            text-[#6C4E1E] 
+            font-semibold
+            px-5 py-2 
+            rounded-lg
+            border border-[#dbc592]
+            shadow-sm
+            transition-all duration-300
+          "
+        >
+          ← Back
+        </button>
+
+
 
         <h2 className="text-3xl font-bold text-center mb-8 text-[#6C4E1E] tracking-wide">
           PART-A : EXECUTIVE SUMMARY

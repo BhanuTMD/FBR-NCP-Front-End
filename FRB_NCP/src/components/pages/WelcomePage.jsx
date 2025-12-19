@@ -26,7 +26,7 @@ export default function WelcomePage() {
         <h1
           className="
             text-4xl md:text-5xl font-extrabold
-            bg-gradient-to-r from-red-700 via-purple-600 to-pink-600
+            bg-gradient-to-r from-blue-700 via-purple-600 to-pink-600
             bg-clip-text text-transparent 
             mb-6 tracking-tight
           "
