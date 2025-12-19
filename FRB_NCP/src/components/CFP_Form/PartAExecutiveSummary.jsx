@@ -10,33 +10,56 @@ export default function ProjectExecutiveSummary() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF8E6] flex justify-center items-start py-10">
-      <div className="w-[95%] max-w-7xl bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-[#e6d7b8] p-8">
-         {/* BACK BUTTON  */}
+    <div
+      className="
+        min-h-screen flex justify-center items-start py-20 
+        bg-gradient-to-br from-red-100 via-indigo-200 to-purple-200 
+        animate-gradient-x p-6
+      "
+    >
+
+      {/* Outer Card */}
+      <div
+        className="
+          relative w-[95%] max-w-7xl 
+          bg-white/70 backdrop-blur-lg
+          rounded-2xl shadow-xl
+          border border-white/50
+          p-12 transition-all hover:shadow-2xl
+        "
+      >
+
+        {/* BACK BUTTON */}
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
           className="
             absolute left-6 top-6 
-            bg-[#EED9AA]
-            hover:bg-[#e5cc92]
-            text-[#6C4E1E] 
+            bg-white/60 backdrop-blur-md
+            hover:bg-white/80 
+            text-gray-700 
             font-semibold
             px-5 py-2 
-            rounded-lg
-            border border-[#dbc592]
-            shadow-sm
-            transition-all duration-300
+            rounded-lg shadow
+            border
+            transition
           "
         >
           ← Back
         </button>
 
-
-
-        <h2 className="text-3xl font-bold text-center mb-8 text-[#6C4E1E] tracking-wide">
+        {/* HEADER */}
+        <h2
+          className="
+            text-4xl font-extrabold text-center mb-10
+            bg-gradient-to-r from-blue-700 via-purple-600 to-pink-600
+            bg-clip-text text-transparent
+            tracking-tight
+          "
+        >
           PART-A : EXECUTIVE SUMMARY
         </h2>
 
+        {/* FORM GRID */}
         <div className="grid grid-cols-12 gap-6">
 
           <FormBlock label="Full Title of Proposal (with Acronym)" span={12} rows={3} />
@@ -67,36 +90,32 @@ export default function ProjectExecutiveSummary() {
 
         </div>
 
-        {/* Buttons Row */}
-        <div className="flex justify-between mt-10">
+        {/* Buttons */}
+        <div className="flex justify-between mt-12">
 
-          {/* SAVE BUTTON */}
+          {/* SAVE */}
           <button
             onClick={handleSave}
             className="
-              bg-[#F9D97A]
-              hover:bg-[#f4c653]
-              text-[#6C4E1E]
-              font-semibold
-              px-8 py-3 rounded-xl
-              shadow-md border border-[#e5ce85]
-              transition-all duration-300
+              px-10 py-4 rounded-full
+              bg-gradient-to-r from-green-500 to-teal-600
+              text-white font-semibold text-lg
+              shadow-lg hover:shadow-2xl 
+              transition-transform hover:scale-105 active:scale-95
             "
           >
             💾 Save Form
           </button>
 
-          {/* NEXT PAGE BUTTON */}
+          {/* NEXT */}
           <button
-            onClick={() => navigate('/PartBSection1Page')}
+            onClick={() => navigate('/add-cfp/partBSection1Page')}
             className="
-              bg-[#F2A65A]
-              hover:bg-[#ee8f33]
-              text-white
-              font-semibold
-              px-8 py-3 rounded-xl
-              shadow-md border border-[#e19c64]
-              transition-all duration-300
+              px-10 py-4 rounded-full
+              bg-gradient-to-r from-indigo-500 to-purple-600
+              text-white font-semibold text-lg
+              shadow-lg hover:shadow-2xl 
+              transition-transform hover:scale-105 active:scale-95
             "
           >
             👉 Go to Part-B Section-1 Page
@@ -105,6 +124,7 @@ export default function ProjectExecutiveSummary() {
         </div>
 
       </div>
+
     </div>
   );
 }
@@ -112,22 +132,42 @@ export default function ProjectExecutiveSummary() {
 function FormBlock({ label, span, rows }) {
   return (
     <div
-      className={`col-span-${span} flex flex-col bg-[#FFFDF8] border border-[#E8DDBF] p-4 rounded-xl hover:shadow-lg transition-all duration-300`}
+      className={`
+        col-span-${span} flex flex-col
+        bg-white/60 backdrop-blur-xl
+        border border-white/50 
+        p-5 rounded-xl shadow
+        hover:shadow-lg transition
+      `}
     >
-      <label className="font-semibold tracking-wide text-[14px] mb-2 text-[#746039]">
+      <label
+        className="
+          font-semibold text-gray-700 tracking-wide text-sm mb-2
+        "
+      >
         {label}
       </label>
 
       {rows ? (
         <textarea
           rows={rows}
-          className="bg-white border border-[#d7c9a6] rounded-lg p-3 outline-none
-                     focus:ring-2 ring-[#F9CC6C] transition-all duration-300"
+          className="
+            bg-white/70
+            border border-gray-300 
+            rounded-lg p-3 outline-none
+            focus:ring-4 focus:ring-indigo-300 
+            transition
+          "
         />
       ) : (
         <input
-          className="bg-white border border-[#d7c9a6] rounded-lg p-3 outline-none
-                     focus:ring-2 ring-[#F9CC6C] transition-all duration-300"
+          className="
+            bg-white/70
+            border border-gray-300 
+            rounded-lg p-3 outline-none
+            focus:ring-4 focus:ring-indigo-300 
+            transition
+          "
         />
       )}
     </div>

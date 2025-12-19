@@ -5,9 +5,6 @@ export default function PartBSection2() {
 
   const navigate = useNavigate();
 
-  /** ------------------------------------------
-   * Load Part-B Data or Create New Structure
-   ------------------------------------------ **/
   const [data, setData] = useState(() => {
     const stored = localStorage.getItem("partBdata");
     return stored
@@ -28,20 +25,17 @@ export default function PartBSection2() {
         };
   });
 
-  /** ------------------------------------------
-   * Work Package Table Handlers
-   ------------------------------------------ **/
-  const updateWorkItem = (index, field, value) => {
+
+  const updateWorkItem = (i, k, v) => {
     const arr = [...data.workPlan];
-    arr[index][field] = value;
+    arr[i][k] = v;
     setData({ ...data, workPlan: arr });
   };
 
-  const toggleDetails = (index) => {
-    updateWorkItem(index, "open", !data.workPlan[index].open);
-  };
+  const toggleDetails = (i) =>
+    updateWorkItem(i, "open", !data.workPlan[i].open);
 
-  const addWorkRow = () => {
+  const addWorkRow = () =>
     setData({
       ...data,
       workPlan: [
@@ -58,209 +52,182 @@ export default function PartBSection2() {
         }
       ]
     });
-  };
 
-  const removeWorkRow = (index) => {
+  const removeWorkRow = i =>
     setData({
       ...data,
-      workPlan: data.workPlan.filter((_, i) => i !== index)
+      workPlan: data.workPlan.filter((_, x) => x !== i)
     });
-  };
 
-  /** ------------------------------------------
-   * Save & Navigation Controls
-   ------------------------------------------ **/
-  const saveB = () => {
-    localStorage.setItem("partBdata", JSON.stringify(data));
-    alert("Part-B Saved Successfully.");
-  };
 
-  const goBack = () => {
+  function saveB() {
     localStorage.setItem("partBdata", JSON.stringify(data));
-    navigate("/add-cfp/part-b/section-1");
-  };
+    alert("Part-B Saved Successfully");
+  }
 
-  const finishSection = () => {
+  function goBack() {
     localStorage.setItem("partBdata", JSON.stringify(data));
-    navigate("/add-cfp/print");
-  };
+    navigate("/add-cfp/partBSection1Page");
+  }
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white shadow rounded">
+    <div className="max-w-6xl mx-auto p-10 bg-gradient-to-br from-[#fff6e6] to-[#ffeec8] shadow-2xl rounded-3xl border border-[#e6d7b8]">
 
-      {/* -------------------------------- HEADER TITLE -------------------------------- */}
-      <h2 className="text-xl font-bold mb-6">
-        Part-B — Section-2 : Detailed Work Plan
-      </h2>
+  <h2 className="text-3xl font-extrabold mb-10 text-center tracking-wide text-[#6C4E1E]">
+    Part-B — Section-2 : Detailed Work Plan
+  </h2>
 
-      {/* -------------------------------- TABLE BEGIN -------------------------------- */}
-      <table className="w-full border text-sm">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="border px-2 py-1 w-12 text-center">Sr</th>
-            <th className="border px-2 py-1">Vertical</th>
-            <th className="border px-2 py-1">Work Package</th>
-            <th className="border px-2 py-1">Lead Participant</th>
-            <th className="border px-2 py-1">Participants</th>
-            <th className="border px-2 py-1 w-20 text-center">Action</th>
+  {/* TABLE */}
+  <table className="w-full text-sm overflow-hidden rounded-xl shadow-lg border border-[#d8c9a8]">
+
+    <thead className="bg-[#f8dfa9] text-[#6C4E1E] font-semibold">
+      <tr>
+        <th className="px-3 py-3 text-center border border-[#e6d7b8] w-14">Sr</th>
+        <th className="px-3 py-3 border border-[#e6d7b8]">Vertical</th>
+        <th className="px-3 py-3 border border-[#e6d7b8]">Work Package</th>
+        <th className="px-3 py-3 border border-[#e6d7b8]">Lead</th>
+        <th className="px-3 py-3 border border-[#e6d7b8]">Participants</th>
+        <th className="px-3 py-3 border border-[#e6d7b8] text-center w-20">
+          Action
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {data.workPlan.map((wp, i) => (
+        <React.Fragment key={i}>
+
+          <tr className="hover:bg-[#fff9e9] transition">
+
+            <td className="border border-[#e6d7b8] text-center font-bold text-[#6C4E1E]">
+              {i + 1}
+            </td>
+
+            <td className="border border-[#e6d7b8]">
+              <input
+                className="w-full px-3 py-2 bg-transparent outline-none text-[#6C4E1E] placeholder-gray-400"
+                value={wp.vertical}
+                onChange={(e) => updateWorkItem(i, "vertical", e.target.value)}
+              />
+            </td>
+
+            <td className="border border-[#e6d7b8]">
+              <input
+                className="w-full px-3 py-2 bg-transparent outline-none text-[#6C4E1E]"
+                value={wp.workPackage}
+                onChange={(e) => updateWorkItem(i, "workPackage", e.target.value)}
+              />
+            </td>
+
+            <td className="border border-[#e6d7b8]">
+              <input
+                className="w-full px-3 py-2 bg-transparent outline-none text-[#6C4E1E]"
+                value={wp.leadParticipant}
+                onChange={(e) => updateWorkItem(i, "leadParticipant", e.target.value)}
+              />
+            </td>
+
+            <td className="border border-[#e6d7b8]">
+              <input
+                className="w-full px-3 py-2 bg-transparent outline-none text-[#6C4E1E]"
+                value={wp.participants}
+                onChange={(e) => updateWorkItem(i, "participants", e.target.value)}
+              />
+            </td>
+
+            <td className="border border-[#e6d7b8] text-center space-x-2">
+              <button
+                onClick={() => toggleDetails(i)}
+                className="text-[#d28a00] underline font-semibold hover:text-[#a66a00] transition text-xs"
+              >
+                {wp.open ? "Hide" : "More"}
+              </button>
+
+              <button
+                onClick={() => removeWorkRow(i)}
+                className="text-red-600 underline font-semibold hover:text-red-800 transition text-xs"
+              >
+                Delete
+              </button>
+            </td>
           </tr>
-        </thead>
 
-        <tbody>
-          {data.workPlan.map((wp, index) => (
-            <React.Fragment key={index}>
+          {wp.open && (
+            <tr>
+              <td colSpan={6} className="p-6 bg-[#fffdf5] border-y border-[#e6d7b8]">
 
-              {/* -------------------------------- MAIN TABLE ROW -------------------------------- */}
-              <tr>
-                <td className="border text-center font-semibold">{index + 1}</td>
+                <p className="text-[#6C4E1E] mb-2 font-semibold">
+                  Vertical: {wp.vertical || "-"} | WP: {wp.workPackage || "-"}
+                </p>
 
-                {/* --- VERTICAL --- */}
-                <td className="border">
-                  <input
-                    className="w-full px-2 py-1"
-                    value={wp.vertical}
-                    onChange={(e) =>
-                      updateWorkItem(index, "vertical", e.target.value)
-                    }
-                  />
-                </td>
+                <label className="block mt-3 font-medium text-[#6C4E1E] text-sm">
+                  Objectives
+                </label>
+                <textarea
+                  className="w-full border border-[#dccdaa] bg-white rounded-lg px-3 py-2 outline-none shadow-sm mt-1"
+                  value={wp.objectives}
+                  onChange={(e) => updateWorkItem(i, "objectives", e.target.value)}
+                  rows={2}
+                />
 
-                {/* --- WORK PACKAGE --- */}
-                <td className="border">
-                  <input
-                    className="w-full px-2 py-1"
-                    value={wp.workPackage}
-                    onChange={(e) =>
-                      updateWorkItem(index, "workPackage", e.target.value)
-                    }
-                  />
-                </td>
+                <label className="block mt-4 font-medium text-[#6C4E1E] text-sm">
+                  Description of Work
+                </label>
+                <textarea
+                  className="w-full border border-[#dccdaa] bg-white rounded-lg px-3 py-2 outline-none shadow-sm mt-1"
+                  value={wp.description}
+                  onChange={(e) => updateWorkItem(i, "description", e.target.value)}
+                  rows={3}
+                />
 
-                {/* --- LEAD --- */}
-                <td className="border">
-                  <input
-                    className="w-full px-2 py-1"
-                    value={wp.leadParticipant}
-                    onChange={(e) =>
-                      updateWorkItem(index, "leadParticipant", e.target.value)
-                    }
-                  />
-                </td>
+                <label className="block mt-4 font-medium text-[#6C4E1E] text-sm">
+                  Deliverables
+                </label>
+                <textarea
+                  className="w-full border border-[#dccdaa] bg-white rounded-lg px-3 py-2 outline-none shadow-sm mt-1"
+                  value={wp.deliverables}
+                  onChange={(e) => updateWorkItem(i, "deliverables", e.target.value)}
+                  rows={2}
+                />
 
-                {/* --- PARTICIPANTS --- */}
-                <td className="border">
-                  <input
-                    className="w-full px-2 py-1"
-                    value={wp.participants}
-                    onChange={(e) =>
-                      updateWorkItem(index, "participants", e.target.value)
-                    }
-                  />
-                </td>
+              </td>
+            </tr>
+          )}
 
-                {/* --- ACTION BUTTONS --- */}
-                <td className="border text-center space-x-2">
-                  <button
-                    onClick={() => toggleDetails(index)}
-                    className="text-blue-600 underline text-xs"
-                  >
-                    {wp.open ? "Hide" : "More"}
-                  </button>
+        </React.Fragment>
+      ))}
+    </tbody>
 
-                  {data.workPlan.length > 1 && (
-                    <button
-                      onClick={() => removeWorkRow(index)}
-                      className="text-red-600 underline text-xs"
-                    >
-                      Delete
-                    </button>
-                  )}
-                </td>
-              </tr>
+  </table>
 
-              {/* -------------------------------- EXPANDED ROW DETAILS -------------------------------- */}
-              {wp.open && (
-                <tr>
-                  <td colSpan={6} className="border bg-gray-50 p-3">
+  {/* ADD BUTTON */}
+  <button
+    onClick={addWorkRow}
+    className="mt-6 px-6 py-3 bg-[#d29e52] hover:bg-[#c68e3c] text-white rounded-xl shadow-lg font-semibold transition"
+  >
+    + Add Work Package Row
+  </button>
 
-                    <h4 className="font-semibold mb-2 text-gray-700">
-                      Vertical: {wp.vertical || "-"} | Work Package: {wp.workPackage || "-"}
-                    </h4>
+  {/* FOOTER BUTTONS */}
+  <div className="flex justify-between mt-10 pt-6 border-t border-[#d9caa9]">
 
-                    <label className="block mt-3 font-medium text-sm">Objectives</label>
-                    <textarea
-                      className="w-full border px-2 py-1"
-                      rows={2}
-                      value={wp.objectives}
-                      onChange={(e) =>
-                        updateWorkItem(index, "objectives", e.target.value)
-                      }
-                    />
+    <button
+      onClick={goBack}
+      className="px-4 py-3 rounded-xl border border-[#c2b18a] text-[#6C4E1E] font-semibold hover:bg-[#f6ead3] transition"
+    >
+      ← Back to Section-1
+    </button>
 
-                    <label className="block mt-3 font-medium text-sm">Description of Work</label>
-                    <textarea
-                      className="w-full border px-2 py-1"
-                      rows={3}
-                      value={wp.description}
-                      onChange={(e) =>
-                        updateWorkItem(index, "description", e.target.value)
-                      }
-                    />
+    <button
+      onClick={saveB}
+      className="px-6 py-3 bg-[#0B6E4F] hover:bg-[#095d43] text-white rounded-xl shadow font-semibold transition"
+    >
+      Save Part-B
+    </button>
 
-                    <label className="block mt-3 font-medium text-sm">Deliverables</label>
-                    <textarea
-                      className="w-full border px-2 py-1"
-                      rows={2}
-                      value={wp.deliverables}
-                      onChange={(e) =>
-                        updateWorkItem(index, "deliverables", e.target.value)
-                      }
-                    />
+  </div>
 
-                  </td>
-                </tr>
-              )}
+</div>
 
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
-      {/* -------------------------------- TABLE END -------------------------------- */}
-
-      {/* ADD ROW BUTTON */}
-      <button
-        onClick={addWorkRow}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
-      >
-        + Add Work Package Row
-      </button>
-
-      {/* NAVIGATION BUTTONS */}
-      <div className="flex justify-between border-t pt-6 mt-8">
-
-        <button
-          className="px-4 py-2 border rounded"
-          onClick={goBack}
-        >
-          ← Back to Section-1
-        </button>
-
-        <button
-          className="px-4 py-2 bg-green-700 text-white rounded"
-          onClick={saveB}
-        >
-          Save Draft
-        </button>
-
-        <button
-          className="px-4 py-2 bg-indigo-700 text-white rounded"
-          onClick={finishSection}
-        >
-          Finish → Print
-        </button>
-
-      </div>
-
-    </div>
   );
 }

@@ -13,11 +13,11 @@ export default function AppRoutes() {
       <Route path="/" element={<WelcomePage />} />
 
       {/* PART A */}
-      <Route path="/add-cfp" element={<PartAExecutiveSummary />} />
+      <Route path="/add-cfp/partAExecutiveSummary" element={<PartAExecutiveSummary />} />
 
       {/* PART B */}
-      <Route path="/add-cfp/part-b/section-1" element={<PartBSection1Page />} />
-      <Route path="/add-cfp/part-b/section-2" element={<PartBSection2Page />} />
+      <Route path="/add-cfp/partBSection1Page" element={<PartBSection1Page />} />
+      <Route path="/add-cfp/partBSection2Page" element={<PartBSection2Page />} />
 
       {/* PRINT */}
       <Route path="/add-cfp/print" element={<ProposalPrint />} />

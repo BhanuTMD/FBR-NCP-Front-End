@@ -41,7 +41,7 @@ export default function WelcomePage() {
 
         {/* CTA Button */}
         <button
-          onClick={() => navigate("/add-cfp")}
+          onClick={() => navigate("/add-cfp/partAExecutiveSummary")}
           className="
             px-8 py-4 rounded-full
             bg-gradient-to-r from-indigo-500 to-purple-600
